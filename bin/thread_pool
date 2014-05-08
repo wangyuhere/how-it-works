@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+
+require 'pool/job'
+require 'pool/thread'
+
+manager = Pool::Thread::Manager.new 3, 5
+manager.status
+
+10.times.each do |i|
+  job = Pool::DemoJob.new(i)
+  manager << job
+  puts "Added #{job}!"
+end
+manager.status
+
+sleep 1 until manager.jobs.size == 0
+manager.status
+
+# shutdown and wait for all workers to stop
+manager.shutdown
+manager.workers.map &:join

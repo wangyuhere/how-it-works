@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+
+require 'pool/job'
+require 'pool/process'
+
+manager = Pool::Process::Manager.new 5
+
+trap('SIGINT') do
+  puts 'Shutdown manager ... '
+  manager.shutdown
+end
+
+puts 'Press ctrl-c to shutdown'
+
+10.times.each { |i| manager << Pool::DemoJob.new(i) }
+Process.waitall

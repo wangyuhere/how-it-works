@@ -3,6 +3,17 @@ require_relative './collection'
 module Pool
   module Process
 
+    # Manager manages a group of worker processes to handle the job.
+    # After Manager is initialized, it forks a group of workers.
+    # When a worker is started or worker is free, the worker sends "ready" message to manager.
+    # Then the manager sends a job (though Marshal.dump) to the worker.
+    # The communication between manager and worker is by shared IO pipe before the fork.
+    #
+    # If there is no ready worker, jobs are saved in the manager.
+    # If there is no jobs, all workers will wait.
+    #
+    # When manager is shutdown, "exit" message is sent to all workers.
+    # Then worker will finish the current job and exit.
     class Manager
       def initialize(nr_of_workers)
         @nr_of_workers = nr_of_workers

@@ -1,6 +1,7 @@
 # How It Works
 
 Demonstrate how things work in CS area using ruby!
+
 Note: For learning and demo only, don't use it in production :)
 
 # Content

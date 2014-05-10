@@ -15,5 +15,7 @@ Demonstrate how thread pool works. See [source](https://github.com/wangyuhere/ho
 Demonstrate how process pool works. See [source](https://github.com/wangyuhere/how-it-works/blob/master/lib/pool/process.rb)
 
 ## Cache
+* Simple LRU (Lease recently used) cache see [source](https://github.com/wangyuhere/how-it-works/blob/master/lib/cache/lru.rb)
+
 ## Server
 ## Database
